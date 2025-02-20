@@ -4,7 +4,7 @@ import requests
 #r = requests.post('https://httpbin.org/post', data={'key': 'value'})
 data = {
     "model": "mistral",
-    "prompt": "Hi, how are you?",
+    "prompt": "Hi",
     "stream": False
     }
 r = requests.post("http://localhost:11434/api/generate", json= data)
