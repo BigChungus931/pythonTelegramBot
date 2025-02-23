@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import sys
+import requests
 from os import getenv
 
 from aiogram import Bot, Dispatcher, html
@@ -31,15 +32,23 @@ async def command_start_handler(message: Message) -> None:
 
 
 @dp.message()
-async def echo_handler(message: Message) -> None:
-    """
-    Handler will forward receive a message back to the sender
+async def ask_ollama (message: Message) -> None:
 
-    By default, message handler will handle all message types (like a text, photo, sticker etc.)
-    """
     try:
-        # Send a copy of the received message
-        await message.send_copy(chat_id=message.chat.id)
+
+        print(message.text)
+        data = {
+            "model": "mistral",
+            "prompt": message.text,
+            "stream": False
+        }
+        r = requests.post("http://localhost:11434/api/generate", json=data)
+
+        response = r.json()
+        response_text = response.get("response", "answer not received")
+        print(response_text)
+        await message.answer(response_text)
+
     except TypeError:
         # But not all the types is supported to be copied so need to handle it
         await message.answer("Nice try!")

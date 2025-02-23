@@ -13,4 +13,6 @@ r = requests.post("http://localhost:11434/api/generate", json= data)
   #"prompt": "Why is the sky blue?",
   #"stream": false
 #}'
-print(r)
+response = r.json()
+response_text = response.get("response", "answer not received")
+print(response_text)
