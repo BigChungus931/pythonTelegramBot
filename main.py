@@ -35,11 +35,19 @@ async def command_start_handler(message: Message) -> None:
 async def ask_ollama (message: Message) -> None:
 
     try:
-
         print(message.text)
+        instruction = "Please answer shortly: "
+        from_text = message.text.split()
+        word_to_find = "short"
+        prompt = message.text
+        for word in from_text:
+            if word == word_to_find:
+                prompt = instruction + prompt
+                break
+
         data = {
             "model": "mistral",
-            "prompt": message.text,
+            "prompt": prompt,
             "stream": False
         }
         r = requests.post("http://localhost:11434/api/generate", json=data)
