@@ -38,7 +38,7 @@ async def ask_ollama (message: Message) -> None:
         print(message.text)
         instruction = "Please answer shortly: "
         from_text = message.text.split()
-        word_to_find = "the"
+        word_to_find = "the, that"
         prompt = message.text
         for word in from_text:
             if word == word_to_find:
