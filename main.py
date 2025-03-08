@@ -35,19 +35,40 @@ async def command_start_handler(message: Message) -> None:
 async def ask_ollama (message: Message) -> None:
 
     try:
+        standard_prompt = "standard_prompt: "
+        modified_prompt = "answer shortly: "
+        modified_prompt_2 = "answer thoughtfully: "
+        key = "*"
+        key_2 = "="
+
         print(message.text)
-        instruction = "Please answer shortly: "
-        from_text = message.text.split()
-        word_to_find = "the, that"
-        prompt = message.text
-        for word in from_text:
-            if word == word_to_find:
-                prompt = instruction + prompt
-                break
+        first_key = message.text[:1]
+        print(first_key)
+
+        if first_key == key:
+            print(modified_prompt + message.text[1:])
+
+        elif first_key == key_2:
+            print(modified_prompt_2 + message.text[1:])
+
+        else:
+            print(standard_prompt + message.text)
+        print(message.text)
+        # instruction = "Please answer shortly: "
+        # from_text = message.text.split()
+        # print(from_text)
+        # word_to_find = "short"
+        # for word in from_text:
+        #     print(word)
+        #     if word == word_to_find:
+        #         print("short answer")
+        #         prompt = instruction + prompt
+        #         print(prompt)
+        #         break
 
         data = {
             "model": "mistral",
-            "prompt": prompt,
+            "prompt": message.text,
             "stream": False
         }
         r = requests.post("http://localhost:11434/api/generate", json=data)
