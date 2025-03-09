@@ -35,25 +35,40 @@ async def command_start_handler(message: Message) -> None:
 async def ask_ollama (message: Message) -> None:
 
     try:
-        standard_prompt = "standard_prompt: "
-        modified_prompt = "answer shortly: "
-        modified_prompt_2 = "answer thoughtfully: "
         key = "*"
         key_2 = "="
+        key_3 = "+"
+        key_4 = "-"
+        key_5 = "?"
 
         print(message.text)
         first_key = message.text[:1]
         print(first_key)
-
+        modified_prompt = ""
         if first_key == key:
-            print(modified_prompt + message.text[1:])
+            print("Answer shortly to the message: " + message.text[1:])
+            modified_prompt = "Answer shortly to the message: " + message.text[1:]
 
         elif first_key == key_2:
-            print(modified_prompt_2 + message.text[1:])
+            print("Answer thoughtfully to the message: " + message.text[1:])
+            modified_prompt = "Answer thoughtfully to the message: " + message.text[1:]
+
+        elif first_key == key_3:
+            print("Imagine that you are very happy, joyful and answer in rhymes to this message: " + message.text[1:])
+            modified_prompt = "Imagine that you are very happy, joyful and answer in rhymes to this message: " + message.text[1:]
+
+        elif first_key == key_4:
+            print("Imagine you are very depressed and you answer this question very depressingly: " + message.text[1:])
+            modified_prompt = "Imagine you are very depressed and you answer this question very depressingly: " + message.text[1:]
+
+        elif first_key == key_5:
+            print("Imagine you are very sarcastic jester and answer in rhymes to this message: " + message.text[1:])
+            modified_prompt = "Imagine you are very sarcastic jester and answer in rhymes to this message: " + message.text[1:]
 
         else:
-            print(standard_prompt + message.text)
-        print(message.text)
+            print(message.text)
+            modified_prompt = message.text
+
         # instruction = "Please answer shortly: "
         # from_text = message.text.split()
         # print(from_text)
@@ -65,10 +80,12 @@ async def ask_ollama (message: Message) -> None:
         #         prompt = instruction + prompt
         #         print(prompt)
         #         break
-
+        # {{.System}}
+        # User: {{.Prompt}}
+        # Assistant:
         data = {
             "model": "mistral",
-            "prompt": message.text,
+            "prompt": modified_prompt,
             "stream": False
         }
         r = requests.post("http://localhost:11434/api/generate", json=data)
