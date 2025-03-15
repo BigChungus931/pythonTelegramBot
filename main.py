@@ -43,23 +43,22 @@ async def ask_ollama (message: Message) -> None:
 
         print(message.text)
         first_key = message.text[:1]
-        print(first_key)
         modified_prompt = ""
         if first_key == key:
             print("Answer shortly to the message: " + message.text[1:])
             modified_prompt = "Answer shortly to the message: " + message.text[1:]
 
         elif first_key == key_2:
-            print("Answer thoughtfully to the message: " + message.text[1:])
-            modified_prompt = "Answer thoughtfully to the message: " + message.text[1:]
+            print("Answer long to the message: " + message.text[1:])
+            modified_prompt = "Answer long to the message: " + message.text[1:]
 
         elif first_key == key_3:
             print("Imagine that you are very happy, joyful and answer in rhymes to this message: " + message.text[1:])
             modified_prompt = "Imagine that you are very happy, joyful and answer in rhymes to this message: " + message.text[1:]
 
         elif first_key == key_4:
-            print("Imagine you are very depressed and you answer this question very depressingly: " + message.text[1:])
-            modified_prompt = "Imagine you are very depressed and you answer this question very depressingly: " + message.text[1:]
+            print("Answer this question very depressingly: " + message.text[1:])
+            modified_prompt = "Answer this question very depressingly: " + message.text[1:]
 
         elif first_key == key_5:
             print("Imagine you are very sarcastic jester and answer in rhymes to this message: " + message.text[1:])
@@ -84,7 +83,7 @@ async def ask_ollama (message: Message) -> None:
         # User: {{.Prompt}}
         # Assistant:
         data = {
-            "model": "mistral",
+            "model": "openchat",
             "prompt": modified_prompt,
             "stream": False
         }
