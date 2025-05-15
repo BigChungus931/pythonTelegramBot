@@ -83,7 +83,7 @@ async def ask_ollama (message: Message) -> None:
         # User: {{.Prompt}}
         # Assistant:
         data = {
-            "model": "openchat",
+            "model": "gemma3",
             "prompt": modified_prompt,
             "stream": False
         }
