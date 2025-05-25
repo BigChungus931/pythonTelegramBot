@@ -41,7 +41,6 @@ async def ask_ollama (message: Message) -> None:
         key_4 = "-"
         key_5 = "?"
 
-        print(message.text)
         first_key = message.text[:1]
         modified_prompt = ""
         if first_key == key:
@@ -104,6 +103,7 @@ async def main() -> None:
     bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
     # And the run events dispatching
+    await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 
 
